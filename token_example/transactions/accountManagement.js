@@ -2,7 +2,7 @@ $$.transaction.describe("accountManagement", {
     create: function (symbol, owner) {
         let transaction = $$.blockchain.beginTransaction({});
         let uid = $$.uidGenerator.safe_uuid();
-        let account = transaction.lookup('global.Account', uid);
+        let account = transaction.lookup('token_example.Account', uid);
 
         account.init(uid, symbol, owner);
 
@@ -18,7 +18,7 @@ $$.transaction.describe("accountManagement", {
     close: function(accountId){
         let transaction = $$.blockchain.beginTransaction({});
 
-        let account = transaction.lookup('global.Account', accountId);
+        let account = transaction.lookup('token_example.Account', accountId);
 
         if(!account.valid()){
             this.return("Invalid account");
@@ -53,13 +53,13 @@ $$.transaction.describe("accountManagement", {
     transfer: function(tokens, symbol, from, to){
         let transaction = $$.blockchain.beginTransaction({});
 
-        let sourceAccount = transaction.lookup('global.Account', from);
+        let sourceAccount = transaction.lookup('token_example.Account', from);
         if(from.getSymbol() !== symbol || !from.transfer(tokens)){
             this.return("Transfer failed!");
             return;
         }
 
-        let targetAccount = transaction.lookup('global.Account', to);
+        let targetAccount = transaction.lookup('token_example.Account', to);
         if(to.getSymbol() !== symbol || !to.receive(tokens)){
             this.return("Transfer failed");
             return;
@@ -78,7 +78,7 @@ $$.transaction.describe("accountManagement", {
     },
     balanceOf: function(accountId){
         let transaction = $$.blockchain.beginTransaction({});
-        let account = transaction.lookup('global.Account', accountId);
+        let account = transaction.lookup('token_example.Account', accountId);
 
         if(!account.valid()){
             this.return("Invalid account");

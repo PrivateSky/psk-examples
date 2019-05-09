@@ -14,12 +14,12 @@
     var tokenName = "TOKEN_NAME";
     var tokenSymbol = "TKN";
 
-    ris.startSwarm("accountManagement", "create", tokenSymbol, "user_id_from_classic_database").onReturn(function(err, accountId){
+    ris.startSwarm("token_example.accountManagement", "create", tokenSymbol, "user_id_from_classic_database").onReturn(function(err, accountId){
         if(err){
             console.log(err);
         }else{
             console.log("New Account", accountId);
-            ris.startSwarm('tokenManagement', 'emit', tokenName, tokenSymbol, 1000, accountId).onReturn(function(error, symbol) {
+            ris.startSwarm('token_example.tokenManagement', 'emit', tokenName, tokenSymbol, 1000, accountId).onReturn(function(error, symbol) {
                 if(error){
                     console.log(error);
                 }else{

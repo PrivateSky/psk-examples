@@ -2,7 +2,7 @@ $$.transaction.describe("tokenManagement", {
     emit: function (name, symbol, supply, owner) {
         let transaction = $$.blockchain.beginTransaction({});
         let uid = $$.uidGenerator.safe_uuid();
-        let newToken = transaction.lookup('global.Token', symbol);
+        let newToken = transaction.lookup('token_example.Token', symbol);
 
         if(!newToken.prepareToEmit(name, symbol)){
             this.return("Token already exists.");
@@ -14,7 +14,7 @@ $$.transaction.describe("tokenManagement", {
             return;
         }
 
-        let account = transaction.lookup('global.Account', owner);
+        let account = transaction.lookup('token_example.Account', owner);
         if(!account.valid() || !account.active()){
             this.return("Receving account not valid or not active "+account.valid()+" "+account.active());
             return;
